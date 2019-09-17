@@ -24,7 +24,7 @@
         
         cannon.create.onLeft(350);
         
-        cannon.create.onRight(575);
+        cannon.create.onLeft(450);
         
         
         
