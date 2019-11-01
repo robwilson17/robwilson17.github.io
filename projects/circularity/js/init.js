@@ -81,7 +81,7 @@ for (var counter = 0; counter < 100; counter++) {
            for (var i = 0; i < circles.length; i++) {
             var eachValue = circles[i];
             physikz.updatePosition(eachValue)
-            game.checkCirclePosition(eachValue)
+            game.checkCirclePosition(eachValue )
     
     // code to repeat using eachValue
 }
