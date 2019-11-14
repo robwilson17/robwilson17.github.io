@@ -13,7 +13,7 @@
             _app;
         
         _canvas = document.getElementById('canvas');
-        _stage  = new createjs.Stage(_canvas);
+        _stage  = new createjs.Stage(_canvas);  
         _resizeable = (resizeable) ? [].concat(resizeable) : [];
         _updateable = (updateable) ? [].concat(updateable) : [];
         
