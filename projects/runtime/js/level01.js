@@ -23,18 +23,40 @@ var level01 = function (window) {
         };
         window.levelData = levelData;
         // set this to true or false depending on if you want to see hitzones
-        game.setDebugMode(true);
+        game.setDebugMode(false);
 
         // BEGIN EDITING YOUR CODE HERE
-//var hitZoneSize = 25;
-//var damageFromObstacle = 10;
-//var myObstacle = game.createObstacle(hitZoneSize,damageFromObstacle);
-//myObstacle.x = 400;
-//myObstacle.y = 100;
-//game.addGameItem(myObstacle);    
-
+    function createSawBlade(x,y) {
+    var hitZoneSize = 25;
+    
+    var damageFromObstacle = 10;
+    
+    var myObstacle = game.createObstacle(hitZoneSize,damageFromObstacle);
+            myObstacle.x = x;
+            myObstacle.y = y;
+            game.addGameItem(myObstacle);    
+    var obstacleImage = draw.bitmap('img/sawblade.png');
+            myObstacle.addChild(obstacleImage);
+        obstacleImage.x = -25;
+        obstacleImage.y = -25;
     }
-};
+}
+createSawBlade(440,370);
+createSawBlade(500,200);
+createSawBlade(800,300);
+//  function createSawBlade(x,y) {
+////    // your code goes here
+////    var myObstacle = game.createObstacle(hitZoneSize,damageFromObstacle);
+////            myObstacle.x = x;
+////            myObstacle.y = y;
+////            game.addGameItem(myObstacle);    
+////    var obstacleImage = draw.bitmap('img/sawblade.png');
+////            myObstacle.addChild(obstacleImage);
+////        obstacleImage.x = -25;
+////        obstacleImage.y = -25;
+//}  
+////    createSawBlade(440,370);
+//};
 
 // DON'T REMOVE THIS CODE //////////////////////////////////////////////////////
 if((typeof process !== 'undefined') &&
