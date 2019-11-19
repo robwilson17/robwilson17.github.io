@@ -16,47 +16,57 @@ var level01 = function (window) {
             number: 1, 
             speed: -3,
             gameItems: [
-                {type: 'sawblade',x:400,y:groundY},
-                {type: 'sawblade',x:600,y:groundY},
-                {type: 'sawblade',x:900,y:groundY}
+                {type: 'sawblade',x:440,y:370},
+                {type: 'sawblade',x:500,y:200},
+                {type: 'sawblade',x:800,y:300}
             ]
         };
         window.levelData = levelData;
         // set this to true or false depending on if you want to see hitzones
-        game.setDebugMode(false);
+        game.setDebugMode(true);
 
         // BEGIN EDITING YOUR CODE HERE
-    function createSawBlade(x,y) {
-    var hitZoneSize = 25;
+        var hitZoneSize = 25;
     
-    var damageFromObstacle = 10;
-    
-    var myObstacle = game.createObstacle(hitZoneSize,damageFromObstacle);
+        var damageFromObstacle = 10;
+function createSawBlade(x,y) {
+        var myObstacle = game.createObstacle(hitZoneSize,damageFromObstacle);
             myObstacle.x = x;
             myObstacle.y = y;
             game.addGameItem(myObstacle);    
-    var obstacleImage = draw.bitmap('img/sawblade.png');
+        var obstacleImage = draw.bitmap('img/sawblade.png');
             myObstacle.addChild(obstacleImage);
         obstacleImage.x = -25;
         obstacleImage.y = -25;
     }
+
+function createEnemy(x,y){
+    
 }
-createSawBlade(440,370);
-createSawBlade(500,200);
-createSawBlade(800,300);
-//  function createSawBlade(x,y) {
-////    // your code goes here
-////    var myObstacle = game.createObstacle(hitZoneSize,damageFromObstacle);
-////            myObstacle.x = x;
-////            myObstacle.y = y;
-////            game.addGameItem(myObstacle);    
-////    var obstacleImage = draw.bitmap('img/sawblade.png');
-////            myObstacle.addChild(obstacleImage);
-////        obstacleImage.x = -25;
-////        obstacleImage.y = -25;
-//}  
-////    createSawBlade(440,370);
-//};
+
+
+
+
+
+        for  (var j = 0; j < levelData.gameItems.length; j++){
+            var gameItem = levelData.gameItems[j];
+            if (levelData.gameItems[j].type === 'sawblade'){
+            createSawBlade(gameItem.x, gameItem.y);
+            }
+            if (levelData.gameItems[j].type === 'enemy'){
+            createEnemy(gameItem.x, gameItem.y);
+            }
+            if (levelData.gameItems[j].type === 'reward'){
+            createReward(gameItem.x, gameItem.y);
+            }
+        }
+        
+        
+        
+        
+        
+    };
+};
 
 // DON'T REMOVE THIS CODE //////////////////////////////////////////////////////
 if((typeof process !== 'undefined') &&
