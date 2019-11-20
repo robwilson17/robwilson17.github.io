@@ -16,9 +16,13 @@ var level01 = function (window) {
             number: 1, 
             speed: -3,
             gameItems: [
-                {type: 'sawblade',x:440,y:370},
-                {type: 'sawblade',x:500,y:200},
-                {type: 'sawblade',x:800,y:300}
+                {type: 'sawblade',x:440,y:400},
+                {type: 'sawblade',x:500,y:450},
+                {type: 'sawblade',x:800,y:400},
+                {type: 'sawblade',x:900,y:groundY},
+                {type: 'sawblade',x:600,y:345},
+                {type: 'sawblade',x:875,y:340},
+                {type: 'sawblade',x:100,y:329}
             ]
         };
         window.levelData = levelData;
@@ -33,18 +37,40 @@ function createSawBlade(x,y) {
         var myObstacle = game.createObstacle(hitZoneSize,damageFromObstacle);
             myObstacle.x = x;
             myObstacle.y = y;
-            game.addGameItem(myObstacle);    
-        var obstacleImage = draw.bitmap('img/sawblade.png');
-            myObstacle.addChild(obstacleImage);
-        obstacleImage.x = -25;
-        obstacleImage.y = -25;
+            game.addGameItem(myObstacle);
+
+        var obstacleImage = draw.bitmap('img/sawblade.png');          
+            myObstacle.addChild(obstacleImage);            
+            obstacleImage.x = -25;
+            obstacleImage.y = -25;
     }
 
+var enemy =  game.createGameItem('enemy',25);
+var redSquare = draw.rect(50,50,'red');
+redSquare.x = -25;
+redSquare.y = -25;
+enemy.addChild(redSquare);
+
+enemy.x = 400;
+enemy.y = groundY-50;
+
+game.addGameItem(enemy);
 function createEnemy(x,y){
     
 }
 
+function createBox(x,y){
+    var myObstacle = game.createObstacle(hitZoneSize,damageFromObstacle);
+            myObstacle.x = x;
+            myObstacle.y = y;
+            game.addGameItem(myObstacle);
 
+        var obstacleImage = draw.bitmap('img/sawblade.png');          
+            myObstacle.addChild(obstacleImage);            
+            obstacleImage.x = -25;
+            obstacleImage.y = -25;
+};
+createBox(100,200);
 
 
 
