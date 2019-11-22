@@ -92,20 +92,26 @@ enemy.addChild(redSquare);
         game.changeIntegrity(-100);
         //enemy.fadeOut();
 };
-function createReward(x, y){
-    greenSquare.x = x;
-    greenSquare.y = y;
-    greenSquare.velocityX = -10;
-    reward.addChild(greenSquare);
-    
-    
+
+
+var rewardImage = draw.rect(50,50,'green');
+
+function createReward(x,y){
+rewardImage.x = -25;
+rewardImage.y = -25;
+reward.addChild(rewardImage);
+reward.x = x;
+reward.y = y;
+reward.velocityX = -1;
+game.addGameItem(reward);
+
+reward.onPlayerCollision = function() {
+  console.log('Hallebot got points!');
+  game.increaseScore(50);
+  reward.fadeOut();
+};    
 }
-    redSquare.onPlayerCollision = function(){
-        game.increaseScore(100);
-        reward.fadeOut();
 
-
-    }
 
         for  (var j = 0; j < levelData.gameItems.length; j++){
             var gameItem = levelData.gameItems[j];
