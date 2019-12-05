@@ -6,23 +6,23 @@ var level01 = function (window) {
     var createjs = window.createjs;
 
     window.opspark.runLevelInGame = function(game) {
-        // some useful constants 
+        // some useful constants
         var groundY = game.groundY;
 
         // this data will allow us to define all of the
         // behavior of our game
         var levelData = {
             name: "Robot Romp",
-            number: 1, 
+            number: 1,
             speed: -3,
             gameItems: [
-                {type: 'sawblade',x:440,y:300},
-                {type: 'sawblade',x:520,y:410},
-                {type: 'sawblade',x:800,y:275},
-                {type: 'sawblade',x:900,y:groundY},
+                {type: 'sawblade',x:940,y:groundY},
+                {type: 'sawblade',x:520,y:groundY},
+                {type: 'sawblade',x:2000,y:275},
+                {type: 'sawblade',x:5100,y:groundY},
                 {type: 'sawblade',x:6780,y:245},
                 {type: 'sawblade',x:875,y:440},
-                {type: 'sawblade',x:200,y:329},
+                {type: 'sawblade',x:4000,y:329},
                 {type: 'box',x:500,y:-25},
                 {type: 'enemy',x:400,y:25},
                 {type: 'reward',x:700,y:100}
@@ -34,7 +34,7 @@ var level01 = function (window) {
 
         // BEGIN EDITING YOUR CODE HERE
         var hitZoneSize = 25;
-    
+
         var damageFromObstacle = 10;
 function createSawBlade(x,y) {
         var myObstacle = game.createObstacle(hitZoneSize,damageFromObstacle);
@@ -42,11 +42,11 @@ function createSawBlade(x,y) {
             myObstacle.y = y;
             game.addGameItem(myObstacle);
 
-        var obstacleImage = draw.bitmap('img/sawblade.png');          
-            myObstacle.addChild(obstacleImage);            
+        var obstacleImage = draw.bitmap('img/sawblade.png');
+            myObstacle.addChild(obstacleImage);
             obstacleImage.x = -25;
             obstacleImage.y = -25;
-            
+
     }
 
 var enemy =  game.createGameItem('enemy',25);
@@ -62,14 +62,14 @@ var purpleSquare = draw.rect(50,50,'purple');
 function createEnemy(x,y){
     enemy.x = x;
     enemy.y = groundY- y;
-    enemy.velocityX = -10;
+    enemy.velocityX = -3;
     rotationVelocity = 10;
     enemy.addChild(purpleSquare);
-    
+
 game.addGameItem(enemy);
 
-var obstacleImage2 = draw.bitmap('img/sawblade.png');          
-            myObstacle.addChild(obstacleImage);            
+var obstacleImage2 = draw.bitmap('img/sawblade.png');
+            myObstacle.addChild(obstacleImage);
             obstacleImage2.x = -25;
             obstacleImage2.y = -25;
 }
@@ -84,7 +84,7 @@ enemy.addChild(redSquare);
 //enemy.y = groundY-50;
 //
 //game.addGameItem(enemy);
-//   
+//
 };
 //createBox(500,-25);
     enemy.onPlayerCollision = function() {
@@ -109,7 +109,7 @@ reward.onPlayerCollision = function() {
   console.log('Hallebot got points!');
   game.increaseScore(50);
   reward.fadeOut();
-};    
+};
 }
 
 
@@ -128,11 +128,11 @@ reward.onPlayerCollision = function() {
             createBox(gameItem.x,gameItem.y);
             }
         }
-        
-        
-        
-        
-        
+
+
+
+
+
     };
 };
 
