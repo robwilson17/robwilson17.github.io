@@ -16,125 +16,148 @@ var level01 = function (window) {
             number: 1,
             speed: -3,
             gameItems: [
-                {type: 'sawblade',x:940,y:groundY},
-                {type: 'sawblade',x:520,y:groundY},
-                {type: 'sawblade',x:2000,y:275},
-                {type: 'sawblade',x:5100,y:groundY},
-                {type: 'sawblade',x:6780,y:245},
-                {type: 'sawblade',x:875,y:440},
-                {type: 'sawblade',x:4000,y:329},
-                {type: 'box',x:500,y:-25},
-                {type: 'enemy',x:400,y:25},
-                {type: 'reward',x:700,y:100}
+                {type: 'sawblade', x:1000, y:groundY},
+                {type: 'sawblade',x:1600,y:groundY},
+                {type: 'sawblade',x:2400,y:groundY},
+                {type: 'sawblade', x:3000, y:groundY},
+                {type: 'sawblade',x:3600,y:groundY},
+                {type: 'sawblade',x:4200,y:groundY},
+                {type: 'box',x:2000,y:groundY-120},
+                {type: 'box', x:3200, y:groundY-120},
+                {type: 'box', x:6400, y:groundY-120},
+                {type: 'box', x:8600, y:groundY-120},
+                {type: 'enemy', x: 800, y: groundY-55},
+                {type: 'enemy', x: 1600, y: groundY-55},
+                {type: 'enemy', x: 2400, y: groundY-55},
+                {type: 'reward', x: 1400, y: groundY-120},
+                {type: 'reward', x: 1000, y: groundY-120},
+                {type: 'reward', x: 2000, y: groundY-120}
             ]
         };
+
         window.levelData = levelData;
         // set this to true or false depending on if you want to see hitzones
-        game.setDebugMode(false);
+        game.setDebugMode(true);
 
         // BEGIN EDITING YOUR CODE HERE
-        var hitZoneSize = 25;
+var myObstacle;
 
-        var damageFromObstacle = 10;
-function createSawBlade(x,y) {
-        var myObstacle = game.createObstacle(hitZoneSize,damageFromObstacle);
-            myObstacle.x = x;
-            myObstacle.y = y;
+//sawblade :
+            var createSawBlade = function(x,y) {
+                var hitZoneSize = 30;
+                var damageFromObstacle = 10;
+                var myObstacle = game.createObstacle(hitZoneSize,damageFromObstacle);
+                    myObstacle.x = x;
+                    myObstacle.y = y;
+                var obstacleImage = draw.bitmap('https://upload.wikimedia.org/wikipedia/commons/thumb/6/67/Fuuma_Shuriken.svg/525px-Fuuma_Shuriken.svg.png');
+                    myObstacle.addChild(obstacleImage);
+                    obstacleImage.x = -70;
+                    obstacleImage.y = -75;
+
+                    obstacleImage.scaleX = 0.20;
+                    obstacleImage.scaleY = 0.20;
+
+                game.addGameItem(myObstacle);
+
+                myObstacle.onPlayerCollision = function() {
+                    game.changeIntegrity(-10);
+                    myObstacle.fadeOut();
+                };
+            };
+
+
+
+//extra obstacle :
+        var createBox = function(x,y) {
+            var hitZoneSize = 25;
+            var damageFromObstacle;
+            var myObstacle = game.createObstacle(hitZoneSize, damageFromObstacle);
+                myObstacle.x = x;
+                myObstacle.y = y;
+            var obstacleImage = draw.bitmap('http://www.pngall.com/wp-content/uploads/2/Fireball-PNG-Free-Download.png');
+                myObstacle.addChild(obstacleImage);
+                obstacleImage.x = -50;
+                obstacleImage.y = -55;
+                obstacleImage.scaleX = 0.25;
+                obstacleImage.scaleY = 0.25;
+
             game.addGameItem(myObstacle);
 
-        var obstacleImage = draw.bitmap('img/sawblade.png');
-            myObstacle.addChild(obstacleImage);
-            obstacleImage.x = -25;
-            obstacleImage.y = -25;
-
-    }
-
-var enemy =  game.createGameItem('enemy',25);
-var reward = game.createGameItem('reward', 25);
-var redSquare = draw.rect(50,50,'red');
-var greenSquare = draw.rect(50,50,'green');
-var purpleSquare = draw.rect(50,50,'purple');
-
-//enemy.x = 400;
-//enemy.y = groundY-50;
-//
-//game.addGameItem(enemy);
-function createEnemy(x,y){
-    enemy.x = x;
-    enemy.y = groundY- y;
-    enemy.velocityX = -3;
-    rotationVelocity = 10;
-    enemy.addChild(purpleSquare);
-
-game.addGameItem(enemy);
-
-var obstacleImage2 = draw.bitmap('img/sawblade.png');
-            myObstacle.addChild(obstacleImage);
-            obstacleImage2.x = -25;
-            obstacleImage2.y = -25;
-}
-//createEnemy(800,25)
-function createBox(x,y){
-
-redSquare.x = x;
-redSquare.y = y;
-enemy.addChild(redSquare);
-
-//enemy.x = 400;
-//enemy.y = groundY-50;
-//
-//game.addGameItem(enemy);
-//
-};
-//createBox(500,-25);
-    enemy.onPlayerCollision = function() {
-        console.log('The enemy has hit Halle');
-        game.changeIntegrity(-100);
-        //enemy.fadeOut();
-};
+            myObstacle.onPlayerCollision = function() {
+                game.changeIntegrity(-20);
+                myObstacle.fadeOut();
+            };
+        };
 
 
-var rewardImage = draw.rect(50,50,'green');
 
-function createReward(x,y){
-rewardImage.x = -25;
-rewardImage.y = -25;
-reward.addChild(rewardImage);
-reward.x = x;
-reward.y = y;
-reward.velocityX = -1;
-game.addGameItem(reward);
+//enemy :
+        function createEnemy (x,y) {
+            var enemy =  game.createGameItem('enemy',30);
+                enemy.x = x;
+                enemy.y = y;
+                enemy.velocityX = -0.65;
+            var redSquare = draw.bitmap('https://www.freepngimg.com/thumb/anime/26592-5-uchiha-sasuke-transparent.png');
+                redSquare.x = -40;
+                redSquare.y = -40;
+                redSquare.scaleX = 0.045;
+                redSquare.scaleY = 0.045;
 
-reward.onPlayerCollision = function() {
-  console.log('Hallebot got points!');
-  game.increaseScore(50);
-  reward.fadeOut();
-};
-}
+            enemy.addChild(redSquare);
 
+            game.addGameItem(enemy);
+            enemy.onPlayerCollision = function() {
+                game.changeIntegrity(-30);
+                enemy.fadeOut();
+            };
 
-        for  (var j = 0; j < levelData.gameItems.length; j++){
-            var gameItem = levelData.gameItems[j];
-            if (levelData.gameItems[j].type === 'sawblade'){
-            createSawBlade(gameItem.x, gameItem.y);
-            }
-            if (levelData.gameItems[j].type === 'enemy'){
-            createEnemy(gameItem.x, gameItem.y);
-            }
-            if (levelData.gameItems[j].type === 'reward'){
-            createReward(gameItem.x, gameItem.y);
-            }
-            if (levelData.gameItems[j].type === 'box'){
-            createBox(gameItem.x,gameItem.y);
-            }
+            enemy.onProjectileCollision = function() {
+                game.increaseScore(50);
+                enemy.fadeOut();
+            };
         }
 
 
 
+//reward :
+        function createReward (x,y) {
+            var reward = game.createGameItem('reward', 16);
+                reward.x = x;
+                reward.y = y;
+                reward.velocityX = -1;
+            var sharingan = draw.bitmap('http://agarioskins.com/submitted/useruploads/obito-mangekyo-sharingan.png');
+                sharingan.x = -12;
+                sharingan.y = -12;
+                sharingan.scaleX = 0.10;
+                sharingan.scaleY = 0.10;
+            reward.addChild(sharingan);
 
+            game.addGameItem(reward);
+
+            reward.onPlayerCollision = function() {
+                game.increaseScore(100);
+                game.changeIntegrity(+20);
+                reward.fadeOut();
+            };
+        }
+
+        for (var X = 0; X < levelData.gameItems.length; X++) {
+            var gameItem = levelData.gameItems[X];
+
+            if (gameItem.type === 'sawblade') {
+                createSawBlade(gameItem.x,gameItem.y);
+            } else if (gameItem.type === 'box') {
+                createBox(gameItem.x,gameItem.y);
+            } else if (gameItem.type === 'enemy') {
+                createEnemy(gameItem.x,gameItem.y);
+            } else if (gameItem.type === 'reward') {
+                createReward(gameItem.x,gameItem.y);
+            }
+        }
 
     };
-};
+
+}
 
 // DON'T REMOVE THIS CODE //////////////////////////////////////////////////////
 if((typeof process !== 'undefined') &&
